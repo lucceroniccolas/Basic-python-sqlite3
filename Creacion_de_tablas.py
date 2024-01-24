@@ -27,12 +27,12 @@ def create_table():
     )""")
 
     cursor.execute("""CREATE TABLE IF NOT EXISTS inscripcion(
-                   Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                   Id_estudiante INTEGER NOT NULL,
-                   Id_mesa INTEGER NOT NULL,
-                   Fecha_Inscripcion NUMERIC NOT NULL
-                
-
+                    Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                    Id_estudiante INTEGER NOT NULL,
+                    Id_mesa INTEGER NOT NULL,
+                    Fecha_Inscripcion NUMERIC NOT NULL,
+                    FOREIGN KEY(Id_estudiante) REFERENCES estudiantes(Id),
+                    FOREIGN KEY(Id_mesa) REFERENCES Mesa_de_examen(Id)
     ) """)
 ## CLAVES FORANEAS
 
@@ -58,20 +58,9 @@ def create_table():
                    Aula NUMERIC,
                    Duracion NUMERIC
     )""")
-
-
-
-
-
     # El commit sirve para confirmar un dato (realizar los cambios)
-
     # El commit se llama desde el objeto de conexion  
-
-
     conn.commit()
-    
-    
-    
     conn.close()
 
 if __name__== "__main__":
