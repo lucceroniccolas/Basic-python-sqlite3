@@ -13,11 +13,19 @@ def insert_alumnos_y_inscripcion(Nombre, Apellido, DNI, Direccion, Telefono, Cor
     
     #Obtenemos el id del ultimo alumno insertado 
 
+<<<<<<< HEAD
     cursor.execute("""SELECT last_insert_rowid()""")
     alumno_id=cursor.lastrowid
     conn.commit()
     conn.close()
   
+=======
+    cursor.execute("SELECT last_insert_rowid()")
+    alumno_id=cursor.fetchall()[0]
+    conn.commit()
+    conn.close()
+    print (alumno_id)
+>>>>>>> 9fbd989c06c8b76e82d7ef21d240fa61e6e33b23
     return (alumno_id)
 
    # cursor.execute("""INSERT INTO inscripcion ()
@@ -42,13 +50,22 @@ def insertar_mesa(Fecha_y_hora_str,Profesor_titular,Primer_vocal,Segundo_vocal,T
                    VALUES (?, ?, ?, ?, ?, ?, ?)""",(Fecha_y_hora_objeto.timestamp(),Profesor_titular, Primer_vocal, Segundo_vocal, Tercer_vocal, Aula, Duracion))
 
     
+<<<<<<< HEAD
     cursor.execute("""SELECT last_insert_rowid()""")
     mesa_id=cursor.lastrowid
+=======
+    cursor.execute("SELECT last_insert_rowid()")
+    mesa_id=cursor.fetchall()[0]
+>>>>>>> 9fbd989c06c8b76e82d7ef21d240fa61e6e33b23
 
    
     conn.commit()
     conn.close()  
+<<<<<<< HEAD
     
+=======
+    print (type(mesa_id))
+>>>>>>> 9fbd989c06c8b76e82d7ef21d240fa61e6e33b23
     return (mesa_id)
     
 
