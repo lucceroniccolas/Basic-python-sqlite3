@@ -1,7 +1,7 @@
 import sqlite3 as sql
 
 def create_tables(): 
-    conn = sql.connect("Sistema de mesas de examentes.db")
+    conn = sql.connect("Sistema_de_mesas_de_examentes.db")
     cursor = conn.cursor()
     cursor.execute("""CREATE TABLE IF NOT EXISTS estudiantes(
 
@@ -21,9 +21,11 @@ def create_tables():
     )""")
 
     cursor.execute("""CREATE TABLE IF NOT EXISTS materia(
-                    Id INTEGER NOT NULL PRIMARY KEY,
+                    Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                    Id_Carrera INTEGER NOT NULL,
                     Nombre_materia  TEXT,
-                    Descripcion TEXT 
+                    Descripcion TEXT,
+                    FOREIGN KEY(Id_Carrera) REFERENCES Carrera(Id)
     )""")
 
     cursor.execute("""CREATE TABLE IF NOT EXISTS inscripcion(
@@ -35,7 +37,20 @@ def create_tables():
                     FOREIGN KEY(Id_mesa) REFERENCES Mesa_de_examen(Id)
     ) """)
     
-    cursor.execute("""CREATE TABLE IF NOT EXISTS Acta_de_Examen(
+    cursor.execute("""CREATE TABLE IF NOT EXISTS Mesa_de_examen(
+                   Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                   Id_materia TEXT NOT NULL, 
+                   Fecha_y_hora INTEGER NOT NULL,
+                   Profesor_titular TEXT NOT NULL,
+                   Primer_vocal TEXT NOT NULL,
+                   Segundo_vocal TEXT,
+                   Tercer_vocal TEXT, 
+                   Aula NUMERIC,
+                   Duracion NUMERIC,
+                   FOREIGN KEY (Id_materia) REFERENCES materia(Id)
+    )""")
+
+    cursor.execute("""CREATE TABLE IF NOT EXISTS Acta_de_Examen( 
                     Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                     Id_estudiante INTEGER NOT NULL,
                     Nota_oral NUMERIC, 
@@ -45,16 +60,8 @@ def create_tables():
                     FOREIGN KEY(Id_estudiante) REFERENCES estudiantes(Id),
                     FOREIGN KEY(Id_mesa) REFERENCES Mesa_de_examen(Id) 
     )""")
-    cursor.execute("""CREATE TABLE IF NOT EXISTS Mesa_de_examen(
-                   Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                   Fecha_y_hora INTEGER NOT NULL,
-                   Profesor_titular TEXT NOT NULL,
-                   Primer_vocal TEXT NOT NULL,
-                   Segundo_vocal TEXT,
-                   Tercer_vocal TEXT, 
-                   Aula NUMERIC,
-                   Duracion NUMERIC
-    )""")
+
+    
     conn.commit()
     conn.close()
 
