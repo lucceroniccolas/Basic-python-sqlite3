@@ -62,7 +62,9 @@ if __name__ == "__main__":
     while respuesta!=0 :
 
         respuesta=int(input("\n ¿Qué consulta desea realizar? \n \n 0. Exit  \n 1. ¿Cuáles son los id de los alumnos? \n 2. Borrar a alguien de la lista mediante id \n 3. ¿Cuáles Son las notas finales? \n 4. ¿Cuándo son las mesas?  \n   "))
-    
+        if respuesta >4: 
+            break
+
         if respuesta==1: 
             mostrar_id_y_nombres()
 
